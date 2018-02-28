@@ -1,0 +1,34 @@
+.return-to-top {
+  margin: 0;
+  position: fixed;
+  left: calc(85% + 25px);
+  top: calc(85% + 25px);
+  width: 150px;
+  height: 40px;
+  z-index: 100;
+  //display: none;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #003C52;
+  font-size: 15px;
+  padding: 12px 5px;
+}
+
+.back-to-top i{
+  color: #fff;
+  margin-right: 10px;
+}
+
+.cancel-class {
+  text-align: right;
+  margin: 10px 0 0 0;
+  float: right;
+  font-size: 80%;
+  white-space: nowrap;
+  background-color: #FFFEFA;
+  border: 2px solid #50e3e3;
+  color: #003c52;
+}
+.accordion-navigation a:first-child {
+  margin-top: 40px;
+}

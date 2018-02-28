@@ -1,0 +1,11 @@
+<!--<#% if @klasses_paginated.present?%>-->
+  <% if @klasses.present?%>
+  <% i = 1 %>
+  <% panel_name = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh'] %>
+  <!--<#% @klasses_paginated.each do |day, klasses| %>-->
+        <% @klasses.each do |day, klasses| %>
+      <%= render :partial => 'classes', :locals => { :day => day, :klasses => klasses, :panel_id => i, :panel_name => panel_name[i-1] }  %>
+  <% i = i + 1 %>
+  <% end %>
+  
+<% end %>

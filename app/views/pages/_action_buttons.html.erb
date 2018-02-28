@@ -1,0 +1,21 @@
+<% if @user.paid? && klass.sign_up_id.nil? && ((klass.start_timestamp.present? && klass.start_timestamp>Time.now)) %>
+
+    <%= link_to "Take Class", signup_klasses_path(klass_id: klass.try(:id), format: :json), remote: true, method: :post, class: 'button radius classes-take-class classes-join-button' %>
+
+<% elsif @user.paid? && klass.sign_up_id.nil? %>
+
+        <%= link_to "Unavailable", signup_klasses_path(klass_id: klass.try(:id)), remote: true, method: :post, class: 'button radius classes-take-class classes-join-button disabled' %>
+
+<% elsif @user.paid? && !klass.sign_up_id.nil? && !klass.sign_up_canceled?%>
+
+    <%= link_to "Cancel", cancel_klasses_path(klass_id: klass.try(:id), format: :json), remote: true, method: :post, class: 'button radius cancel-class' %>
+
+<% elsif @user.paid? && !klass.sign_up_id.nil? && klass.sign_up_canceled? %>
+
+    <span style="font-weight: 800;">Canceled</span>
+
+<% else %>
+
+    <%= link_to "Sign Up", new_charge_path, class: 'button radius classes-join-up classes-join-button', id: "cancel-class"%>
+
+<% end %>

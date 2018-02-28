@@ -1,0 +1,34 @@
+<%= form_for(@blacklist) do |f| %>
+  <% if @blacklist.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@blacklist.errors.count, "error") %> prohibited this blacklist from being saved:</h2>
+
+      <ul>
+      <% @blacklist.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :start_date %><br>
+    <%= f.datetime_select :start_date %>
+  </div>
+  <div class="field">
+    <%= f.label :end_date %><br>
+    <%= f.datetime_select :end_date %>
+  </div>
+  <div class="form-group">
+    <%= f.label 'Class', class: 'control-label' %>
+    <%= collection_select(:blacklist, :klass_id, Klass.unique_values, :id, :klass_with_studio, {include_blank: true}, { :multiple => false}) %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<br>
+<br>
+<br>
+<br>

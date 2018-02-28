@@ -1,0 +1,44 @@
+<div class="row">
+  <div class=" small-12 large-10 columns large-centered">
+    <div class="charges-panel">
+      <p class="welcome">Great, one step to go...</p>
+
+
+      <article>
+        <div class="row">
+          <div class=" small-12 large-4 columns large-offset-1">
+            <div class="charges-price radius">
+              <p>First Month</p>
+
+              <h1>$<%= ((@amount)/100).round(0) %></h1>
+
+              Then $118 per month
+
+            </div>
+          </div>
+          <div class=" small-12 large-6 columns" style="float: left;">
+            <h3>What you get..</h3>
+
+            <ul>
+              <li>Up to 30 classes per month</li>
+              <li>Exclusive access to Melbourne’s premier fitness studios</li>
+              <li>Thousands of classes across different varieties of fitness categories</li>
+              <li>Access anytime on any device</li>
+              <li>A membership that doesn’t lock you into any contracts</li>
+            </ul>
+            <div id="stripe-button-override">
+              <%= form_tag charges_path do %>
+                  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                          data-key="<%=@stripe_pk%>"
+                          data-description="$<%= (@amount/100.0).round(2) %> Monthly"
+                          data-amount="<%= @amount %>">
+
+                  </script>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</div>

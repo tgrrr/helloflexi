@@ -1,0 +1,49 @@
+<%= form_for(@coupon) do |f| %>
+  <% if @coupon.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@coupon.errors.count, "error") %> prohibited this coupon from being saved:</h2>
+
+      <ul>
+      <% @coupon.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :code %><br>
+    <%= f.text_field :code %>
+  </div>
+  <div class="field">
+    <%= f.label :percent_off %><br>
+    <%= f.number_field :percent_off %>
+  </div>
+    <div class="field">
+      <%= f.label :amount_off %><br>
+      <%= f.number_field :amount_off %>
+    </div>
+  <div class="field">
+    <%= f.label "Currency", class: 'control-label' %>
+    <div class="controls">
+      <%= f.select(:currency, options_for_select([['AUD', 'aud'], ['USD', 'usd']]), { include_blank: false }) %>
+    </div>
+  </div>
+  <div class="field">
+    <%= f.label :max_redemptions %><br>
+    <%= f.number_field :max_redemptions %>
+  </div>
+  <div class="field">
+    <%= f.label "Duration", class: 'control-label' %>
+    <div class="controls">
+      <%= f.select(:duration_in_months, options_for_select([["1 Month", 1], ["3 Months", 3], ["6 Months", 6], ["1 Year", 12], ["2 Years", 24], ["5 Years", 60]]), { include_blank: false }) %>
+    </div>
+  </div>
+  <div class="field">
+    <%= f.label :is_valid %><br>
+    <%= f.check_box :is_valid, {checked: true} %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

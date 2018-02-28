@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="application">
+<head>
+  <title>Helloflexi</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <%= favicon_link_tag 'favicon.png' %>
+
+  <script src="//use.typekit.net/hmz4bfn.js"></script>
+  <script>try{Typekit.load();}catch(e){}</script>
+
+</head>
+
+  <% if current_page?( '/users/sign_up' ) %>
+      <body id="signup-background">
+  <% elsif current_page?( '/users/sign_in' ) %>
+      <body id="signin-background">
+  <% elsif current_page?( '/classes' ) %>
+      <body id="classes-background">
+  <% elsif current_page?( '/classes' ) %>
+    <body id="classes-background">
+<% elsif current_page?( '/classes/nextweek' ) %>
+    <body id="classes-background">
+  <% elsif current_page?( '/contact' ) %>
+      <body id="contact-background">
+  <% elsif current_page?( '/charges/new' ) %>
+      <body id="charges-background">
+  <% elsif current_page?( '/faqs' ) %>
+      <body id="faqs-background">
+  <% elsif controller_name == 'charges' && action_name == 'create' %>
+      <body id="signup-background">
+  <% else %>
+      <div>
+  <% end %>
+  </div>
+  </body>
+
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-MHZBTX"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MHZBTX');</script>
+<!-- End Google Tag Manager -->
+
+  <%= render 'shared/header' %>
+
+  <% if flash[:error] %>
+    <div id="flash_name" class="alert-box error">
+      <%= flash[:error] %>
+      <a class="close">x</a>
+    </div>
+  <% end %>
+
+  <% if flash[:notice] %>
+    <div id="flash_name" class="alert-box success">
+      <%= flash[:notice] %>
+      <a class="close">x</a>
+    </div>
+  <% end %>
+
+  <% if flash[:alert] %>
+    <div id="flash_name" class="alert-box success">
+      <%= flash[:alert] %>
+      <a class="close">x</a>
+    </div>
+  <% end %>
+
+<%= yield %>
+
+<!--footer -->
+
+<%= render 'shared/footer' %>
+
+    </body>
+</html>

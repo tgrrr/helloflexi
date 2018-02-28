@@ -1,0 +1,137 @@
+class MbApi
+  def self.fetch_studio_schedule(*opts)
+    options = opts.extract_options!
+    site_ids = { 'int' => options[:site_ids].to_i }
+    source_credentials = { 'SourceName' => ENV['MB_SOURCE_NAME'], 'Password' => ENV['MB_SOURCE_KEY'], 'SiteIDs' => site_ids }
+    user_credentials = { 'Username' => ENV['USER_NAME'], 'Password' => ENV['USER_PASSWORD'], 'SiteIDs' => site_ids }
+
+    start_date = Date.today.beginning_of_week.strftime
+    end_date = Date.today.end_of_week.strftime
+
+    #######################
+    ## Standard API call ##
+    #######################
+
+    #Create Savon client using default settings
+    http_client = Savon.client(wsdl: "https://api.mindbodyonline.com/0_5/ClassService.asmx?WSDL")
+
+    #Create request and package it for the call
+    http_request = { 'SourceCredentials' => source_credentials,
+                     'UserCredentials' => user_credentials,
+                     'StartDateTime' =>  start_date,
+                     'EndDateTime' => end_date
+    }
+    params = { 'Request' => http_request }
+
+    #Run the call and store the results
+    result = http_client.call(:get_classes, message: params)
+    result = result.body
+    classes =  result[:get_classes_response][:get_classes_result][:classes][:class]
+
+    return classes
+
+    rescue
+     return false
+  end
+
+  def self.fetch_class_visits(class_id)
+    get_class_visits
+  end
+  def self.fetch_client
+    params = {
+        "UserCredentials" => {
+            "Username" => ENV['USER_NAME'],
+            "Password" => ENV['USER_PASSWORD'],
+            "SiteIDs" => { "int" => [210686] } # Site id the staff member is at
+        },
+        "SearchText" => "HelloFlexi"
+    }
+    client = MindBody::Services::ClientService.get_clients(params).result[:clients]
+    client
+  end
+
+  def self.configure_api_call(api_site_ids, api_source_key, api_source_name)
+    MindBody.configure do |config|
+      config.site_ids    = api_site_ids
+      config.source_key  = api_source_key
+      config.source_name = api_source_name
+      config.log_level   = :info # Savon logging level. Default is :debug, options are [:debug, :info, :warn, :error, :fatal]
+    end
+  end
+  def self.appointment klass
+    get_client_params = {
+        "UserCredentials" => {
+            "Username" => ENV['USER_NAME'],
+            "Password" => ENV['USER_PASSWORD'],
+            "SiteIDs" => { "int" => [210686] } # Site id the staff member is at
+        },
+        "SearchText" => "HelloFlexi"
+    }
+    client = MindBody::Services::ClientService.get_clients(get_client_params).result[:clients].first
+    location = MindBody::Services::SiteService.get_locations.result[:locations]
+    staff_member = MindBody::Services::StaffService.get_staff.result[:staff_members].first
+    session_type = MindBody::Services::SiteService.get_session_types.result[:session_types].first
+
+    apppointment_params = {
+        "Appointment" => {
+            "Location" => { "ID" => location.id },
+            "StartDateTime" => DateTime.now,
+            "Staff" => { "ID" => staff_member.id },
+            "Client" => {  "ID" =>  client.id },
+            "SessionType" => { "ID" => session_type.id }
+        }
+    }
+
+    MindBody::Services::AppointmentService.add_or_update_appointments(apppointment_params)
+    puts "------------------------------+++++++++++++++++++++++ #{appointment.inspect} -----------check appointment status"
+  end
+  def self.call_mind_body
+    klasses = Array.new
+    Studio.all.each do |s|
+      configure_api_call(s.site_ids, ENV['MB_SOURCE_KEY'], ENV['MB_SOURCE_NAME'])
+      klasss = MbApi.fetch_studio_schedule(site_ids: s.site_ids)
+      if klasss.present?
+        klasss.each_with_index do |course,index|
+          #check for uniqueness of each class
+          if Klass.find_by(class_id: course[:id]).blank?
+            klass= Klass.create(class_id: course[:id],
+                                title: course[:class_description][:name],
+                                can_book: course[:location][:can_book],
+                                max_capacity: course[:max_capacity],
+                                web_capacity: course[:web_capacity],
+                                total_booked: course[:total_booked],
+                                address: course[:location][:address],
+                                city: course[:location][:city],
+                                state_prov_code: course[:location][:state_prov_code],
+                                postal_code: course[:location][:postal_code],
+                                latitude: course[:location][:latitude],
+                                longitude: course[:location][:longitude],
+                                business_description: course[:location][:business_description],
+                                location_name: course[:location][:name],
+                                location_id: course[:location][:id],
+                                # level: course[:class_description][:level],
+                                class_description: course[:class_description][:description],
+                                class_type: course[:class_description][:program][:schedule_type],
+                                session_type_name: course[:class_description][:session_type][:name],
+                                session_type_id: course[:class_description][:session_type][:id],
+                                staff_name: course[:staff][:name],
+                                staff_id: course[:staff][:id],
+                                staff_bio: course[:staff][:bio],
+                                staff_avatar: course[:staff][:image_url],
+                                studio_id: s.id,
+                                start_timestamp: course[:start_date_time].utc,
+                                end_timestamp: course[:end_date_time],
+                                is_canceled: course[:is_canceled])
+          end
+        end
+      end
+    end
+    klasses = Klass.get_classes_per_day
+  end
+
+  #<Klass id: 295, title: "Crossfit - South Yarra ", all_day: nil, start_timestamp: "2015-05-31 10:30:00", end_timestamp: "2015-05-31 11:30:00",
+  # studio_id: 2, created_at: "2015-05-30 14:25:00", updated_at: "2015-05-30 14:25:00", can_book: nil, max_capacity: nil, web_capacity: nil,
+  # total_booked: nil, address: "324 Walsh Street South Yarra ", city: nil,
+  # state_prov_code: nil, postal_code: nil, latitude: nil, longitude: nil, business_description: nil, location_name: "Hello Flexi", level: nil,
+  # class_description: "<div>56 Porter Street, Prahran VIC 3181</div>", class_type: "DropIn", session_type_name: "Crossfit - ", staff_name: "Ben  Frazer ", staff_bio: nil, staff_avatar: nil, blacklist: nil, is_canceled: "f">
+end

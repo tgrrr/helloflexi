@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <div>
+      <h4>Student details</h4>
+      <b>Name:</b> <%= @sign_up.user.first_name %> <%= @sign_up.user.last_name %><br>
+      <b>Email:</b> <%= @sign_up.user.email %><br>
+      <b>Address 1:</b> <%= @sign_up.user.address_one %><br>
+      <b>Address 2:</b> <%= @sign_up.user.address_two %><br>
+      <b>City, State, Postal:</b> <%= @sign_up.user.city %>, <%= @sign_up.user.state %>, <%= @sign_up.user.postal_code %><br>
+      <b>Country:</b> <%= @sign_up.user.country %><br>
+      <b>Mobile:</b> <%= @sign_up.user.mobile %><br>
+      <b>Preferred Location:</b> <%= @sign_up.user.preferred_location %><br>
+      <b>Time Zone:</b> <%= @sign_up.user.time_zone %><br>
+      <br>
+      <br>
+      <b>Class:</b> <%= @sign_up.klass.title %><br>
+      <%= @sign_up.klass.start_timestamp.strftime("Starting on %m/%d/%Y at %I:%M%p") %><br>
+      <%= @sign_up.klass.end_timestamp.strftime("Ending on %m/%d/%Y at %I:%M%p") %><br>
+    </div>
+  </body>
+</html>

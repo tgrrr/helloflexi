@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Studios</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Logo</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @studios.each do |studio| %>
+      <tr>
+        <td><%= link_to studio.studio_name, studio %></td>
+        <td><%= image_tag(studio.logo.to_s, width: 150) if studio.logo %></td>
+        <td><%= studio.description %></td>
+        <td><%= link_to 'Destroy', studio, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Studio', new_studio_path %>

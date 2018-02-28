@@ -1,0 +1,1 @@
+json.extract! @coupon, :id, :code, :percent_off, :amount_off, :currency, :object_name, :duration, :livemode, :redeem_by, :max_redemptions, :times_redeemed, :duration_in_months, :valid, :created_at, :updated_at

@@ -1,0 +1,34 @@
+<%= form_for(@studio) do |f| %>
+  <% if @studio.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@studio.errors.count, "error") %> prohibited this studio from being saved:</h2>
+
+      <ul>
+      <% @studio.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :studio_name %><br>
+    <%= f.text_field :studio_name %>
+  </div>
+  <div class="field">
+    <%= f.label :site_ids %><br>
+    <%= f.number_field :site_ids %>
+  </div>
+  <div class="field">
+    <%= f.label :logo %><br>
+    <%= f.text_field :logo %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

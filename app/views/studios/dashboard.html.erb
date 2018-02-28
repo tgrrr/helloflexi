@@ -1,0 +1,13 @@
+<h1><%= @studio.studio_name %></h1>
+
+<% @studio.klasses.each do |klass| %>
+
+  <% klass.sign_ups.each do |sign_up| %>
+
+    Student: <%= sign_up.user.first_name %> <%= sign_up.user.last_name %><br>
+    Class: <%= sign_up.klass.title %> <%= sign_up.klass.start_timestamp %><br>
+    Attended: <%= sign_up.attended %><br>
+    <hr>
+  <% end %>
+  
+<% end %>

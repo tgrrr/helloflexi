@@ -1,0 +1,38 @@
+<a name="top"></a>
+	<div class="row">
+    <div class="large-8 columns large-centered">
+      <div class="row centered-text" id="content-wrapper">
+        <div class="signup-panel">
+          <h3 style="text-align: center">Join a Class...</h3>
+          <div class="small-12 columns large-centered weekdays-tablist">
+            <ul class="tabs small-block-grid-8" data-tab>
+              <li class="tab-title active"><a href="#panel1" id="panel">Mon</a></li>
+              <li class="tab-title"><a href="#panel2" id="first-panel">Tue</a></li>
+              <li class="tab-title"><a href="#panel3" id="second-panel">Wed</a></li>
+              <li class="tab-title"><a href="#panel4" id="third-panel">Thu</a></li>
+              <li class="tab-title"><a href="#panel5" id="fourth-panel">Fri</a></li>
+              <li class="tab-title"><a href="#panel6" id="fifth-panel">Sat</a></li>
+              <li class="tab-title"><a href="#panel7" id="sixth-panel">Sun</a></li>
+            </ul>
+<!-- Classes next week link -->
+
+            <%= link_to (classes_nextweek_path) do %>
+                <i class="fa fa-angle-right"></i>
+            <% end %>
+
+            <div class="tabs-content">
+              <%= render "classes_tabs" %>
+            </div>
+            <!--<div id="infinite-scrolling">-->
+              <!--<div class="pagination-loading"></div>-->
+              <!--<#%= will_paginate @klasses%>-->
+            <!--</div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= link_to image_tag( 'http://img.helloflexi.com/img/powered_by_mindbody.png', style: 'width:100px; margin: 0 auto; display:block;'), 'http://www.mindbodyonline.com' %>
+    <a href="#top" class="return-to-top button radius">
+      <i class="fa fa-arrow-up"></i>BACK TO TOP
+    </a>

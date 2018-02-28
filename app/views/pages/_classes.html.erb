@@ -1,0 +1,63 @@
+<% count = 1 %>
+<div class="content <%= panel_name %>-panel-content <%= day %>" id="panel<%= panel_id %>" style="<%= 'display: block;' if panel_id == 1 %>">
+  <dl class="accordion" data-accordion>
+    <dd class="accordion-navigation">
+  <% klasses.each do |klass| %>
+              <a href="#panel<%= panel_id %>_<%= count %>a" class="classes-header">
+                 <!-- Title -->
+                    <i class="fa fa-caret-down left"></i><i class="fa fa-caret-right left"></i>
+                    <h4><%= klass.try(:title) %></h4>
+                      <!--|| <#%= klass.try(:start_timestamp).strftime("%d/%m/%y") %></h4>-->
+                <!--time -->
+                <div class="classes-time">
+                      <!--<i class="fa fa-clock-o" ></i>-->
+                      <%= klass.try(:start_timestamp).strftime("%-I:%M %P") %>
+                </div>
+              </a>
+              <div id="panel<%= panel_id %>_<%= count %>a" class="content classes-details">
+              <!--details that dropdown -->
+                  <div class="row">
+                    <div class="small-12 medium-10 columns">
+                      <ul>
+                      <li>
+                      <i class="fa fa-group"></i>
+                      <strong><%= klass.try(:session_type_name) %></strong>
+                      </li>
+                      <li>
+                      <i class="fa fa-calendar"></i>
+                      <%= klass.try(:start_timestamp).strftime("%A, %d %B") %>
+                      </li>
+                      <li>
+                      <i class="fa fa-map-marker"></i>
+                      <% if klass.try(:location_name) == "Hello Flexi" %>
+                          <!--<#%= link_to strip_tags(klass.try(:class_description)), studio_path(klass.try(:studio)) %>-->
+                          <%= strip_tags(klass.try(:class_description)) %>
+                      <% else %>
+                          <!--<#%= link_to klass.try(:location_name), studio_path(klass.try(:studio)) %>-->
+                          <%= klass.try(:location_name) %>
+                      <% end %>
+                      </li>
+                      </ul>
+                    </div>
+
+                <div class="small-12 medium-2 columns">
+                  <%= render partial: 'action_buttons', locals: {klass: klass}%>
+                </div>
+                  </div>
+                  <!--<div class="row">-->
+                  <!--<div class="small-10 columns">-->
+                  <!--<i class="fa fa-user"></i>-->
+                  <!--<#%= klass.try(:staff_name) %>-->
+                  <!--</div>-->
+                  <!--</div>-->
+              </div>
+               <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <% count = count + 1 %>
+  <% end %>
+      </dd>
+  </dl>
+</div>
+
+

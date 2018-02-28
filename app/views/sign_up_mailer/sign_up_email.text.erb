@@ -1,0 +1,18 @@
+Class signed up for: <%= @sign_up.klass.title %>
+===============================================
+ 
+Class dates:
+
+<%= @sign_up.klass.start_timestamp.strftime("Starting on %m/%d/%Y at %I:%M%p") %>
+<%= @sign_up.klass.end_timestamp.strftime("Ending on %m/%d/%Y at %I:%M%p") %>
+
+<h4>Student details</h4>
+Name: <%= @sign_up.user.first_name %> <%= @sign_up.user.last_name %>
+Email: <%= @sign_up.user.email %>
+Address 1: <%= @sign_up.user.address_one %>
+Address 2: <%= @sign_up.user.address_two %>
+City, State, Postal: <%= @sign_up.user.city %>, <%= @sign_up.user.state %>, <%= @sign_up.user.postal_code %>
+Country: <%= @sign_up.user.country %>
+Mobile: <%= @sign_up.user.mobile %>
+Preferred Location: <%= @sign_up.user.preferred_location %>
+Time Zone: <%= @sign_up.user.time_zone %>

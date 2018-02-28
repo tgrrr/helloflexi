@@ -1,0 +1,42 @@
+# These work
+
+        #### Class queries
+        # p course[:name]
+        # p course[:location][:can_book]
+        # p course[:max_capacity]
+        # p course[:web_capacity]
+        # p course[:is_canceled]
+        # p course[:total_booked]
+        # p course[:location][:address]
+        # p course[:location][:city]
+        # p course[:location][:state_prov_code]
+        # p course[:location][:postal_code]
+        # p course[:location][:latitude]
+        # p course[:location][:longitude]
+        # p course[:location][:business_description]
+        # p course[:location][:name]
+        # p course[:class_description][:level]
+        # p course[:class_description][:description]
+        # p course[:class_description][:program][:schedule_type][:type]
+        # p course[:class_description][:session_type][:name]
+        # p course[:staff][:name]
+        # p course[:staff][:bio]
+        # p course[:staff][:image_url]
+        # End of ones that work
+
+"#<MindBody::Models::Class:0x007f8adb6bee88 @class_schedule_id=2255, 
+  @location=#<MindBody::Models::Location:0x007f8adb6bc048 @site_id=-99, @business_description=\"\\\"The MINDBODY Health Club Demo is awesome.\\\" - Anonymous (but probably someone cool and smart)\", @additional_image_ur_ls=[], @facility_square_feet=nil, @treatment_rooms=nil, @has_classes=false, @phone_extension=nil, @id=1, @name=\"Clubville\", @address=\"4051 S Broad St\", @address2=\"San Luis Obispo, CA 93401\", @tax1=0.08, @tax2=0.05, @tax3=0.05, @tax4=0.0, @tax5=0.0, @phone=\"8777554279\", @city=\"San Luis Obispo\", @state_prov_code=\"CA\", @postal_code=\"93401\", @latitude=35.2470788, @longitude=-120.6426145, @business_id=nil, @pro_spa_finder_site=nil, @distance_in_miles=nil, @image_url=nil, @description=nil, @has_site=nil, @can_book=nil>, @max_capacity=nil, @web_capacity=nil, @total_booked=nil, @web_booked=nil, @semester_id=nil, @is_canceled=false, @substitute=false, @active=true, @is_waitlist_available=false, @is_enrolled=false, @hide_cancel=false, @id=24376, @is_available=true, @start_date_time=Sat, 07 Mar 2015 16:30:00 +0000, @end_date_time=Sat, 07 Mar 2015 17:45:00 +0000, 
+
+  @class_description=#<MindBody::Models::ClassDescription:0x007f8adf21ee88 
+
+  @level=#<MindBody::Models::Level:0x007f8adf21cfe8 @id=7, @name=\"Beginner\">, 
+
+  @id=69, @name=\"Power Yoga\", @description=\"As the name suggests, this class places a strong and fast demand on one’s awareness, agility and strength.  We will walk you into the inner depths of your practice and help you cultivate the strength, alertness and concentration needed to achieve improved vitality.  Not recommended for the faint hearted!\", @notes=nil, @last_updated=\"2011-03-28T06:17:11+00:00\", 
+
+  @program=#<MindBody::Models::Program:0x007f8adf23cac8 @id=26, @name=\"Classes\", 
+
+  @schedule_type=#<MindBody::Models::ScheduleType:0x007f8adf246d20 @type=\"DropIn\">>, 
+
+  @session_type=#<MindBody::Models::SessionType:0x007f8adf246a78 @id=68, @name=\"Yoga \">>, 
+
+  @staff=#<MindBody::Models::Staff:0x007f8adf2448e0 @state=\"CA\", @id=100000279, @name=\"Ashley Knight\", @first_name=\"Ashley\", @last_name=\"Knight\", @image_url=\"https://clients.mindbodyonline.com/studios/DemoAPISandboxRestore/staff/100000279_large.jpg?imageversion=1425719057\", @is_male=false, @email=nil, @mobile_phone=nil, @home_phone=nil, @work_phone=nil, @address=nil, @address2=nil, @city=nil, @country=nil, @postal_code=nil, @foreign_zip=nil, @login_locations=[], @bio=nil, @username=nil, @availabilities=[], @unavailabilities=[]>, @visits=[], @clients=[]>"

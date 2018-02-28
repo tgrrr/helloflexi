@@ -1,0 +1,25 @@
+<div id="header-block" class="grid-block shrink wrap fixed">
+  <div class="grid-content collapse small-12">
+    <ul class="menu-bar dark ">
+      <% unless current_page?(root_url) %>
+          <li><%= link_to image_tag('http://img.helloflexi.com/img/logo_blue_round_small.png'), root_path, id:'menu-logo' %></li>
+        <% else %>
+          <li>&nbsp;</li>
+      <% end %>
+
+      <% if current_user %>
+          <li ui-sref-active="is-active" class="menu-item"><%= link_to 'FAQs', faqs_path %></li>
+          <li ui-sref-active="is-active" class="menu-item"><%= link_to 'Classes', classes_path %></li>
+          &nbsp;
+          <li ui-sref-active="is-active" class="menu-item"><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
+      <% else %>
+          <li ui-sref-active="is-active" class="menu-item">&nbsp;</li>
+          <li ui-sref-active="is-active" class="menu-item">&nbsp;</li>
+          <li ui-sref-active="is-active" class="menu-item"><%= link_to 'Login', new_user_session_path, id: 'login-link' %></li>
+          <% unless current_page?( '/users/sign_up' ) %>
+              <li ui-sref-active="is-active" class="show-for-medium-up">  <%= link_to 'JOIN NOW', new_user_registration_path, class: 'button radius call-to-action-button ', id: 'call-to-action-menu' %></li>
+          <% end %>
+      <% end %>
+    </ul>
+  </div>
+</div>
